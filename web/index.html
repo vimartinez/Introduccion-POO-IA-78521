@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Saludo Personalizado</title>
+</head>
+<body>
+    <h1>¡Bienvenido!</h1>
+    <form id="saludoForm">
+        <label for="nombre">¿Cuál es tu nombre?</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <button type="submit">Saludar</button>
+    </form>
+    <p id="mensaje"></p>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f4f6fb;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            color: #2d3a4b;
+            margin-top: 40px;
+        }
+        form {
+            background: #fff;
+            padding: 24px 32px;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(44,62,80,0.08);
+            margin-top: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        label {
+            font-size: 1.1em;
+            color: #34495e;
+        }
+        input[type="text"] {
+            padding: 10px;
+            border: 1px solid #bfc9d1;
+            border-radius: 5px;
+            font-size: 1em;
+            outline: none;
+            transition: border 0.2s;
+        }
+        input[type="text"]:focus {
+            border-color: #5b9df9;
+        }
+        button {
+            background: #5b9df9;
+            color: #fff;
+            border: none;
+            padding: 10px 0;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #4078c0;
+        }
+        #mensaje {
+            margin-top: 28px;
+            font-size: 1.3em;
+            color: #27ae60;
+            font-weight: bold;
+            min-height: 1.5em;
+            text-align: center;
+        }
+    </style>
+    <script>
+        document.getElementById('saludoForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const nombre = document.getElementById('nombre').value.trim();
+            const mensaje = nombre ? `¡Hola, ${nombre}!` : '';
+            document.getElementById('mensaje').textContent = mensaje;
+        });
+    </script>
+</body>
+</html>
