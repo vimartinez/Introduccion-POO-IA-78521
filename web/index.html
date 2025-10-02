@@ -3,16 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Saludo Personalizado</title>
-</head>
-<body>
-    <h1>¡Bienvenido!</h1>
-    <form id="saludoForm">
-        <label for="nombre">¿Cuál es tu nombre?</label>
-        <input type="text" id="nombre" name="nombre" required>
-        <button type="submit">Saludar</button>
-    </form>
-    <p id="mensaje"></p>
-
     <style>
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
@@ -74,6 +64,43 @@
             text-align: center;
         }
     </style>
+</head>
+<body>
+    <h1>¡Bienvenido!</h1>
+    <form id="saludoForm">
+        <label for="nombre">¿Cuál es tu nombre?</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <button type="submit">Saludar</button>
+    </form>
+    <p id="mensaje"></p>
+    <!-- Segundo formulario para preguntar la edad -->
+    <form id="edadForm" style="margin-top: 16px;">
+        <label for="edad">¿Cuántos años tienes?</label>
+        <input type="text" id="edad" name="edad" required pattern="\d+">
+        <button type="submit">Mostrar Edad</button>
+    </form>
+
+    <script>
+        // Maneja el envío del formulario de saludo por nombre
+        document.getElementById('saludoForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío tradicional del formulario
+            const nombre = document.getElementById('nombre').value.trim(); // Obtiene el nombre ingresado
+            const mensaje = nombre ? `¡Hola, ${nombre}!` : ''; // Genera el mensaje de saludo
+            document.getElementById('mensaje').textContent = mensaje; // Muestra el mensaje en pantalla
+        });
+
+        // Maneja el envío del formulario de edad
+        document.getElementById('edadForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío tradicional del formulario
+            const edad = document.getElementById('edad').value.trim(); // Obtiene la edad ingresada
+            // Verifica si la edad es un número válido
+            if (/^\d+$/.test(edad)) {
+                document.getElementById('mensaje').textContent = `Tienes ${edad} años.`; // Muestra la edad en pantalla
+            } else {
+                document.getElementById('mensaje').textContent = 'Por favor, ingresa una edad válida.'; // Mensaje de error
+            }
+        });
+    </script>
     <script>
         document.getElementById('saludoForm').addEventListener('submit', function(event) {
             event.preventDefault();
