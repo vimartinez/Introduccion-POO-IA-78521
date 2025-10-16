@@ -162,3 +162,4 @@ if __name__ == "__main__":
     
     # Ejecutar demostración avanzada
     demostrar_herencia_multiple()
+

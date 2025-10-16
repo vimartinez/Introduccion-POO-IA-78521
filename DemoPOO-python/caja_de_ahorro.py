@@ -139,3 +139,4 @@ if __name__ == "__main__":
     caja.aplicar_intereses()
     
     print(f"\nRepresentación: {caja}")
+
