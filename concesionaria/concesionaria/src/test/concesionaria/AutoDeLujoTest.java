@@ -44,4 +44,11 @@ public class AutoDeLujoTest {
         int precioCalculado = auto.calcularPrecio();
         assertEquals(67500, precioCalculado);
     }
+
+    @Test
+    public void testCalcularPrecioConPrecioNegativo() {
+        AutoDeLujo auto = new AutoDeLujo("Tesla", "Model S", "PQR678", 2023, -50000, "MOT006", 5, "AWD");
+        int precioCalculado = auto.calcularPrecio();
+        assertEquals(0, precioCalculado);
+    }
 }

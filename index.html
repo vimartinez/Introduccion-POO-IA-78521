@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario Interactivo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <header class="bg-primary text-white py-3 mb-4">
+                    <div class="container">
+                        <h1 class="h2 mb-0">
+                            <i class="fas fa-calendar-alt me-2"></i>
+                            Calendario Interactivo
+                        </h1>
+                    </div>
+                </header>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Controles de navegación -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-6">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-outline-primary" id="prevMonth">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-outline-primary" id="nextMonth">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </button>
+                                    </div>
+                                    <button type="button" class="btn btn-outline-secondary ms-2" id="todayBtn">
+                                        Hoy
+                                    </button>
+                                </div>
+                                <div class="col-md-6 text-md-end">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-outline-info" id="monthView">
+                                            <i class="fas fa-calendar-day me-1"></i> Mes
+                                        </button>
+                                        <button type="button" class="btn btn-outline-info" id="yearView">
+                                            <i class="fas fa-calendar me-1"></i> Año
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vista del mes -->
+            <div id="monthContainer" class="calendar-container">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title text-center" id="currentMonthYear"></h3>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-bordered mb-0" id="calendarTable">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="text-center">Dom</th>
+                                        <th class="text-center">Lun</th>
+                                        <th class="text-center">Mar</th>
+                                        <th class="text-center">Mié</th>
+                                        <th class="text-center">Jue</th>
+                                        <th class="text-center">Vie</th>
+                                        <th class="text-center">Sáb</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="calendarBody">
+                                    <!-- Las celdas del calendario se generarán dinámicamente -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vista del año -->
+            <div id="yearContainer" class="calendar-container d-none">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title text-center" id="currentYear"></h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row" id="yearMonths">
+                            <!-- Los meses del año se generarán dinámicamente -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para agregar eventos -->
+    <div class="modal fade" id="eventModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Agregar Evento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="eventForm">
+                        <div class="mb-3">
+                            <label for="eventTitle" class="form-label">Título del Evento</label>
+                            <input type="text" class="form-control" id="eventTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="eventDescription" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="eventDescription" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="eventColor" class="form-label">Color del Evento</label>
+                            <select class="form-select" id="eventColor">
+                                <option value="primary">Azul</option>
+                                <option value="success">Verde</option>
+                                <option value="warning">Amarillo</option>
+                                <option value="danger">Rojo</option>
+                                <option value="info">Cian</option>
+                                <option value="secondary">Gris</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="eventDate" class="form-label">Fecha</label>
+                            <input type="date" class="form-control" id="eventDate" readonly>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="saveEvent">Guardar Evento</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para mostrar eventos del día -->
+    <div class="modal fade" id="dayEventsModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dayEventsTitle">Eventos del Día</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="dayEventsBody">
+                    <!-- Los eventos se mostrarán aquí -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Nuestro JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>

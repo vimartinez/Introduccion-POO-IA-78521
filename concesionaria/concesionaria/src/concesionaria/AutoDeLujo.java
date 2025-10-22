@@ -9,6 +9,7 @@ public class AutoDeLujo extends Auto{
 
     @Override
     public int calcularPrecio() {
-        return (int)(getPrecio() * 0.9);
+        int precioCalculado = (int)(getPrecio() * 0.9);
+        return precioCalculado < 0 ? 0 : precioCalculado;
     }
 }

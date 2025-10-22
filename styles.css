@@ -1,0 +1,286 @@
+/* Estilos personalizados para el calendario */
+
+:root {
+    --weekend-color: #f8f9fa;
+    --non-working-color: #e9ecef;
+    --today-color: #007bff;
+    --hover-color: #e3f2fd;
+    --event-dot-size: 8px;
+}
+
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.calendar-container {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* Estilos para la tabla del calendario */
+#calendarTable {
+    table-layout: fixed;
+    width: 100%;
+}
+
+#calendarTable th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    padding: 12px 8px;
+    border: 1px solid #dee2e6;
+}
+
+#calendarTable td {
+    height: 100px;
+    vertical-align: top;
+    padding: 8px;
+    border: 1px solid #dee2e6;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#calendarTable td:hover {
+    background-color: var(--hover-color);
+}
+
+/* Días de fin de semana (sábados y domingos) */
+#calendarTable td.weekend {
+    background-color: var(--non-working-color);
+    color: #6c757d;
+}
+
+/* Días no laborales personalizados */
+#calendarTable td.non-working {
+    background-color: var(--non-working-color);
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Día actual */
+#calendarTable td.today {
+    background-color: var(--today-color);
+    color: white;
+    font-weight: bold;
+}
+
+#calendarTable td.today:hover {
+    background-color: #0056b3;
+}
+
+/* Días de otros meses */
+#calendarTable td.other-month {
+    color: #adb5bd;
+    background-color: #f1f3f4;
+}
+
+/* Número del día */
+.day-number {
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+/* Contenedor de eventos */
+.events-container {
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    right: 4px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+}
+
+/* Puntos de eventos */
+.event-dot {
+    width: var(--event-dot-size);
+    height: var(--event-dot-size);
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 2px;
+}
+
+.event-dot.primary { background-color: #007bff; }
+.event-dot.success { background-color: #28a745; }
+.event-dot.warning { background-color: #ffc107; }
+.event-dot.danger { background-color: #dc3545; }
+.event-dot.info { background-color: #17a2b8; }
+.event-dot.secondary { background-color: #6c757d; }
+
+/* Vista del año */
+.year-month {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.year-month h6 {
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #495057;
+}
+
+.year-calendar {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.year-calendar th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    padding: 4px 2px;
+    border: 1px solid #dee2e6;
+    font-size: 10px;
+}
+
+.year-calendar td {
+    height: 20px;
+    vertical-align: top;
+    padding: 2px;
+    border: 1px solid #dee2e6;
+    text-align: center;
+    font-size: 10px;
+    cursor: pointer;
+    position: relative;
+}
+
+.year-calendar td.weekend {
+    background-color: var(--weekend-color);
+    color: #6c757d;
+}
+
+.year-calendar td.non-working {
+    background-color: var(--non-working-color);
+    color: #6c757d;
+}
+
+.year-calendar td.today {
+    background-color: var(--today-color);
+    color: white;
+    font-weight: bold;
+}
+
+.year-calendar td.other-month {
+    color: #adb5bd;
+    background-color: #f8f9fa;
+}
+
+.year-calendar td:hover {
+    background-color: var(--hover-color);
+}
+
+/* Eventos en vista de año */
+.year-event-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    bottom: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.year-event-dot.primary { background-color: #007bff; }
+.year-event-dot.success { background-color: #28a745; }
+.year-event-dot.warning { background-color: #ffc107; }
+.year-event-dot.danger { background-color: #dc3545; }
+.year-event-dot.info { background-color: #17a2b8; }
+.year-event-dot.secondary { background-color: #6c757d; }
+
+/* Modal de eventos */
+.event-item {
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    border-left: 4px solid;
+    background-color: #f8f9fa;
+}
+
+.event-item.primary { border-left-color: #007bff; }
+.event-item.success { border-left-color: #28a745; }
+.event-item.warning { border-left-color: #ffc107; }
+.event-item.danger { border-left-color: #dc3545; }
+.event-item.info { border-left-color: #17a2b8; }
+.event-item.secondary { border-left-color: #6c757d; }
+
+.event-title {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.event-description {
+    font-size: 0.9em;
+    color: #6c757d;
+    margin: 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    #calendarTable td {
+        height: 80px;
+        padding: 4px;
+    }
+    
+    .day-number {
+        font-size: 12px;
+    }
+    
+    .event-dot {
+        width: 6px;
+        height: 6px;
+    }
+    
+    .year-calendar td {
+        height: 16px;
+        font-size: 9px;
+    }
+}
+
+@media (max-width: 576px) {
+    #calendarTable td {
+        height: 60px;
+        padding: 2px;
+    }
+    
+    .day-number {
+        font-size: 11px;
+    }
+    
+    .event-dot {
+        width: 5px;
+        height: 5px;
+    }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.calendar-container {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+
+/* Tooltip personalizado */
+.day-tooltip {
+    position: absolute;
+    background-color: #333;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.day-tooltip.show {
+    opacity: 1;
+}
